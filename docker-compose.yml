@@ -1,0 +1,8 @@
+version: '3'
+services:
+  urlsparser-app:
+    build: .
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+    ports:
+      - "8090:80"
