@@ -3,7 +3,7 @@ using Xunit;
 
 namespace UrlsParser.Tests;
 
-public class UnitTest1
+public class RegexUrlExtracterTest
 {
     [Fact]
     public void ExtractUrls_OneValidUrl_ReturnOneUrl()
