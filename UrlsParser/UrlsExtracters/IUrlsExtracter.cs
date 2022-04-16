@@ -1,4 +1,4 @@
-namespace UrlsParser.Helpers
+namespace UrlsParser.UrlsExtracters
 {
     public interface IUrlsExtracter
     {

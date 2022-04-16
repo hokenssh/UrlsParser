@@ -1,4 +1,4 @@
-using UrlsParser.Helpers;
+using UrlsParser.UrlsExtracters;
 using Xunit;
 
 namespace UrlsParser.Tests;

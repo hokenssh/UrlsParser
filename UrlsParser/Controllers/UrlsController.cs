@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
-using UrlsParser.Helpers;
+using UrlsParser.UrlsExtracters;
 
 namespace UrlsParser.Controllers;
 

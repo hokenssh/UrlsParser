@@ -1,11 +1,11 @@
 using System.Text.RegularExpressions;
 
-namespace UrlsParser.Helpers
+namespace UrlsParser.UrlsExtracters
 {
     public class RegexUrlExtracter : IUrlsExtracter
     {
         // if needed add other file extensions to the expression here
-        private const string FileNameExpression = @"(?i)^(\w+[\w.\-]*)(\.png|\.gpg|\.jpeg|\.gif|\.txt|\.csv|.docx)$";
+        private const string FileNameExpression = @"(?i)^(\w+[\w.\-]*)(\.png|\.gpg|\.jpeg|\.gif|\.txt|\.csv|\.docx)$";
         private const string UrlExpression = @"(?i)\b([(http(s)?)://(www.)?a-z0-9@:%._+\-~#=]|[^\x00-\x7F]){2,}\.([a-z0-9]|[^\x00-\x7F]){2,}\b(([-a-z0-9@:%_+\-.~#?&//=]|[^\x00-\x7F])*)";
         private const string ProtocolPrefixExpression = @"^([\w]+://)";
         public List<string> ExtractUrls(string text)
@@ -36,6 +36,8 @@ namespace UrlsParser.Helpers
             Match matchFileName = Regex.Match(url, FileNameExpression);
             return matchFileName.Success;
         }
+
+
         private string UrlWithProtocolPrefix(string url)
         {
             //check if url contains the protocol prefix

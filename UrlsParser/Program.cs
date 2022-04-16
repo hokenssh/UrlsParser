@@ -1,4 +1,4 @@
-using UrlsParser.Helpers;
+using UrlsParser.UrlsExtracters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,12 +11,10 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (true)
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// this is for the reviewer test the endpoints
+// TODO: remove after reviewing and testing
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
