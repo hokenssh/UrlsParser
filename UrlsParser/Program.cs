@@ -3,7 +3,6 @@ using UrlsParser.UrlsExtracters;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers(o => o.InputFormatters.Insert(o.InputFormatters.Count, new TextPlainInputFormatter()));
 builder.Services.AddScoped<IUrlsExtracter, RegexUrlExtracter>();
 builder.Services.AddEndpointsApiExplorer();

@@ -6,7 +6,7 @@ public class TextPlainInputFormatter : InputFormatter
 
     public TextPlainInputFormatter()
     {
-        SupportedMediaTypes.Add(ContentType);
+        this.SupportedMediaTypes.Add(ContentType);
     }
 
     public override async Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)

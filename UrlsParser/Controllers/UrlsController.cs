@@ -8,11 +8,11 @@ namespace UrlsParser.Controllers;
 [Route("[controller]")]
 public class UrlsController : ControllerBase
 {
-    private readonly IUrlsExtracter _urlsExtracter;
+    private readonly IUrlsExtracter urlsExtracter;
 
     public UrlsController(IUrlsExtracter urlsExtracter)
     {
-        _urlsExtracter = urlsExtracter;
+        this.urlsExtracter = urlsExtracter;
     }
 
     [HttpPost("ExtracUrls")]
@@ -20,6 +20,6 @@ public class UrlsController : ControllerBase
     [Produces("application/json")]
     public List<string> ExtracUrls([FromBody] string body)
     {
-        return _urlsExtracter.ExtractUrls(body);
+        return this.urlsExtracter.ExtractUrls(body);
     }
 }
