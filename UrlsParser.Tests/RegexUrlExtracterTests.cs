@@ -13,11 +13,11 @@ public class RegexUrlExtracterTest
     {
         var text = @"Lorem Ipsum is simply dummy text of the printing test.website.com and typesetting industry. Lorem Ipsum has been the industry's\n"
         + " standard dummy text ever since the 1500s, when an unknown";
+        var expected = new List<string> { "http://test.website.com" };
 
         var actual = this.extracter.ExtractUrls(text);
 
-        Assert.Single(actual);
-        Assert.Equal("http://test.website.com", actual[0]);
+        Assert.Equal(expected, actual);
     }
 
     [Fact]
@@ -25,10 +25,10 @@ public class RegexUrlExtracterTest
     {
         var text = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's\n"
         + " standard dummy text ever since the 1500s, someserver.website1.net and otherserver.com when an unknown";
+        var expected = new List<string> { "http://someserver.website1.net", "http://otherserver.com" };
 
         var actual = this.extracter.ExtractUrls(text);
 
-        var expected = new List<string> { "http://someserver.website1.net", "http://otherserver.com" };
         Assert.Equal(expected, actual);
     }
 
@@ -57,9 +57,11 @@ public class RegexUrlExtracterTest
     [Fact]
     public void ExtractUrls_InputTextUrlsAndFiles_ReturnNoUrls()
     {
-        var actual = this.extracter.ExtractUrls("these two websites wow.website.fi nope.server.net includes two files: image.name.jpeg, excel.file.csv");
-
+        var text = "these two websites wow.website.fi nope.server.net includes two files: image.name.jpeg, excel.file.csv";
         var expected = new List<string> { "http://wow.website.fi", "http://nope.server.net" };
+
+        var actual = this.extracter.ExtractUrls(text);
+
         Assert.Equal(expected, actual);
     }
 
@@ -76,9 +78,9 @@ public class RegexUrlExtracterTest
     {
         var text = @"Lorem Ipsum lorem.ipsum.com is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's\n"
         + " standard dummy text ever since the 1500s, when an unknown...";
+        var expected = new List<string> { "http://lorem.ipsum.com" };
 
         var actual = this.extracter.ExtractUrls(text);
-        var expected = new List<string> { "http://lorem.ipsum.com" };
 
         Assert.Equal(expected, actual);
     }
@@ -88,9 +90,9 @@ public class RegexUrlExtracterTest
     {
         var text = @"Lorem Ipsum ftp://lorem.ipsum.com is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's\n"
         + " standard dummy text ever since the 1500s, when an unknown...";
+        var expected = new List<string> { "ftp://lorem.ipsum.com" };
 
         var actual = this.extracter.ExtractUrls(text);
-        var expected = new List<string> { "ftp://lorem.ipsum.com" };
 
         Assert.Equal(expected, actual);
     }
@@ -100,9 +102,10 @@ public class RegexUrlExtracterTest
     {
         var text = @"Lorem Ipsum https://lorem.ipsum.com/public/files/filename.csv is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's\n"
         + " standard dummy text ever since the 1500s, when an unknown...";
+        var expected = new List<string> { "https://lorem.ipsum.com/public/files/filename.csv" };
 
         var actual = this.extracter.ExtractUrls(text);
-        var expected = new List<string> { "https://lorem.ipsum.com/public/files/filename.csv" };
+
 
         Assert.Equal(expected, actual);
     }
