@@ -7,6 +7,7 @@ namespace UrlsParser.UrlsExtracters
         // if needed add other file extensions to the expression here
         private const string FileNameExpression = @"(?i)^(\w+[\w.\-]*)(\.png|\.gpg|\.jpeg|\.gif|\.txt|\.csv|\.docx)$";
 
+        // this expression accepts file names
         private const string UrlExpression = @"(?i)\b([(http(s)?)://(www.)?a-z0-9@:%._+\-~#=]|[^\x00-\x7F]){2,}\.([a-z0-9]|[^\x00-\x7F]){2,}\b(([-a-z0-9@:%_+\-.~#?&//=]|[^\x00-\x7F])*)";
 
         private const string ProtocolPrefixExpression = @"^([\w]+://)";
@@ -21,14 +22,15 @@ namespace UrlsParser.UrlsExtracters
             // and make sure to include the protocol prefix
             foreach (Match match in urlMatches)
             {
-                string foundUrl = match.Groups[0].Value;
-
-                if (this.IsFileName(foundUrl))
+                string urlCandidate = match.Groups[0].Value;
+                
+                // urlCandidate can be something like random.name.png which is a file name
+                // don't add it to returned Urls
+                if (!this.IsFileName(urlCandidate))
                 {
-                    continue;
+                    urls.Add(this.UrlWithProtocolPrefix(urlCandidate));
                 }
-
-                urls.Add(this.UrlWithProtocolPrefix(foundUrl));
+                
             }
 
             return urls;
@@ -46,7 +48,8 @@ namespace UrlsParser.UrlsExtracters
             var matchProtocol = Regex.Match(url, ProtocolPrefixExpression);
             var hasProtocolPrefix = matchProtocol.Success;
             var protocolPrefix = hasProtocolPrefix ? string.Empty : "http://";
-            return $"{protocolPrefix}{url}";
+
+            return protocolPrefix + url;
         }
     }
 }

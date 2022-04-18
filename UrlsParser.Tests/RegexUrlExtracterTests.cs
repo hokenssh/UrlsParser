@@ -44,6 +44,28 @@ public class RegexUrlExtracterTest
     }
 
     [Fact]
+    public void ExtractUrls_InputEmptyText_ReturnNoUrls()
+    {
+        var text = "";
+
+        var actual = this.extracter.ExtractUrls(text);
+
+        Assert.Empty(actual);
+    }
+
+    [Fact]
+    public void ExtractUrls_InputUrlWithUpperCase_ReturnNoUrls()
+    {
+        var text = @"Lorem Ipsum is uperCaSE.site.com simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's\n"
+        + " standard dummy text ever since the 1500s, when an unknown";
+        var expected = new List<string> { "http://uperCaSE.site.com" };
+
+        var actual = this.extracter.ExtractUrls(text);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
     public void ExtractUrls_InputTextOnlyFiles_ReturnNoUrls()
     {
         var text = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's\n"
