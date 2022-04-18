@@ -11,25 +11,34 @@ public class RegexUrlExtracterTest
     [Fact]
     public void ExtractUrls_OneValidUrl_ReturnOneUrl()
     {
-        var actual = this.extracter.ExtractUrls("hocine.khen.com");
+        var text = @"Lorem Ipsum is simply dummy text of the printing test.website.com and typesetting industry. Lorem Ipsum has been the industry's\n"
+        + " standard dummy text ever since the 1500s, when an unknown";
+
+        var actual = this.extracter.ExtractUrls(text);
 
         Assert.Single(actual);
-        Assert.Equal("http://hocine.khen.com", actual[0]);
+        Assert.Equal("http://test.website.com", actual[0]);
     }
 
     [Fact]
     public void ExtractUrls_MultipleValidUrl_ReturnMultipleUrl()
     {
-        var actual = this.extracter.ExtractUrls("hocine.khen.com hoken.com");
+        var text = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's\n"
+        + " standard dummy text ever since the 1500s, someserver.website1.net and otherserver.com when an unknown";
 
-        var expected = new List<string> { "http://hocine.khen.com", "http://hoken.com" };
+        var actual = this.extracter.ExtractUrls(text);
+
+        var expected = new List<string> { "http://someserver.website1.net", "http://otherserver.com" };
         Assert.Equal(expected, actual);
     }
 
     [Fact]
     public void ExtractUrls_InputTextWithoutUrls_ReturnNoUrls()
     {
-        var actual = this.extracter.ExtractUrls("this is a normal text that does not include urls.");
+        var text = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's\n"
+        + " standard dummy text ever since the 1500s, when an unknown...";
+
+        var actual = this.extracter.ExtractUrls(text);
 
         Assert.Empty(actual);
     }
@@ -37,7 +46,10 @@ public class RegexUrlExtracterTest
     [Fact]
     public void ExtractUrls_InputTextOnlyFiles_ReturnNoUrls()
     {
-        var actual = this.extracter.ExtractUrls("image.name.jpeg, excel.file.csv");
+        var text = @"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's\n"
+        + " standard dummy text image.name.jpeg, excel.file.csv ever since the 1500s, when an unknown...";
+
+        var actual = this.extracter.ExtractUrls(text);
 
         Assert.Empty(actual);
     }
@@ -45,9 +57,9 @@ public class RegexUrlExtracterTest
     [Fact]
     public void ExtractUrls_InputTextUrlsAndFiles_ReturnNoUrls()
     {
-        var actual = this.extracter.ExtractUrls("these two websites hocine.khen.com and hoken.com includes two files: image.name.jpeg, excel.file.csv");
+        var actual = this.extracter.ExtractUrls("these two websites wow.website.fi nope.server.net includes two files: image.name.jpeg, excel.file.csv");
 
-        var expected = new List<string> { "http://hocine.khen.com", "http://hoken.com" };
+        var expected = new List<string> { "http://wow.website.fi", "http://nope.server.net" };
         Assert.Equal(expected, actual);
     }
 
@@ -62,22 +74,36 @@ public class RegexUrlExtracterTest
     [Fact]
     public void ExtractUrls_InputUrlWithoutProtocolPrefix_ReturnUrlWithProtocol()
     {
-        var actual = this.extracter.ExtractUrls("hocine.khen.com");
+        var text = @"Lorem Ipsum lorem.ipsum.com is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's\n"
+        + " standard dummy text ever since the 1500s, when an unknown...";
 
-        Assert.Equal("http://hocine.khen.com", actual[0]);
+        var actual = this.extracter.ExtractUrls(text);
+        var expected = new List<string> { "http://lorem.ipsum.com" };
+
+        Assert.Equal(expected, actual);
     }
 
     [Fact]
     public void ExtractUrls_InputUrlWithProtocolPrefix_ReturnUrlWithExistingProtocol()
     {
-        var actual = this.extracter.ExtractUrls("ftp://hocine.khen.com");
+        var text = @"Lorem Ipsum ftp://lorem.ipsum.com is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's\n"
+        + " standard dummy text ever since the 1500s, when an unknown...";
 
-        Assert.Equal("ftp://hocine.khen.com", actual[0]);
+        var actual = this.extracter.ExtractUrls(text);
+        var expected = new List<string> { "ftp://lorem.ipsum.com" };
+
+        Assert.Equal(expected, actual);
     }
 
-    // multiple valid urls
-    // full url with query params
-    // full url that include image path
-    // mixed files and urls
-    // url with one letter after the last dot --> invvalid
+    [Fact]
+    public void ExtractUrls_InputValidUrlForFileLocation_ReturnUrlWithExistingProtocol()
+    {
+        var text = @"Lorem Ipsum https://lorem.ipsum.com/public/files/filename.csv is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's\n"
+        + " standard dummy text ever since the 1500s, when an unknown...";
+
+        var actual = this.extracter.ExtractUrls(text);
+        var expected = new List<string> { "https://lorem.ipsum.com/public/files/filename.csv" };
+
+        Assert.Equal(expected, actual);
+    }
 }
