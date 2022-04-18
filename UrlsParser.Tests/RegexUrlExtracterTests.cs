@@ -6,7 +6,7 @@ namespace UrlsParser.Tests;
 
 public class RegexUrlExtracterTest
 {
-    private IUrlsExtracter extracter = new RegexUrlExtracter();
+    private readonly IUrlsExtracter extracter = new RegexUrlExtracter();
 
     [Fact]
     public void ExtractUrls_OneValidUrl_ReturnOneUrl()
