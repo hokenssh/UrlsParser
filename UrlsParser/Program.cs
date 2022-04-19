@@ -14,9 +14,6 @@ var app = builder.Build();
 // TODO: remove after reviewing and testing
 app.UseSwagger();
 app.UseSwaggerUI();
-
-app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();

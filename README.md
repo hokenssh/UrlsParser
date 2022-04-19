@@ -9,7 +9,7 @@ It is consists of two projects:
 - ASP.net (core) backend (UrlsParser)
 - Unit Tests Project (UrlsParser.Tests)
 
-The entry point for a testing the endpoint is a swagger portal which is available under the address: **http://localhost:8090/swagger/index.html**
+The entry point for testing the endpoint is a swagger portal (exposed for testing and review purposes) which is available under the address: **http://localhost:8090/swagger/index.html**
 
 ---
 
@@ -55,7 +55,7 @@ $ dotnet test
 ### Endpoint Request Example
 ```
 curl -X 'POST' \
-  'https://localhost:8090/api/v1/ExtracUrls' \
+  'http://localhost:8090/api/v1/ExtracUrls' \
   -H 'accept: application/json' \
   -H 'Content-Type: text/plain' \
   -d 'this is a text for testing url extraction like www.google.com and http://test.com/'
