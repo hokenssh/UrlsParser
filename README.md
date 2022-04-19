@@ -51,3 +51,12 @@ The unit tests are executed during the building process using docker env, but if
 ```
 $ dotnet test
 ```
+
+### Endpoint Request Example
+```
+curl -X 'POST' \
+  'https://localhost:8090/api/v1/ExtracUrls' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: text/plain' \
+  -d 'this is a text for testing url extraction like www.google.com and http://test.com/'
+```
