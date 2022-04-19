@@ -5,7 +5,7 @@ using UrlsParser.UrlsExtracters;
 namespace UrlsParser.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/v1")]
 public class UrlsController : ControllerBase
 {
     private readonly IUrlsExtracter urlsExtracter;

@@ -8,7 +8,7 @@ namespace UrlsParser.UrlsExtracters
         private const string FileNameExpression = @"(?i)^(\w+[\w.\-]*)(\.png|\.gpg|\.jpeg|\.gif|\.txt|\.csv|\.docx)$";
 
         // this expression accepts file names
-        private const string UrlExpression = @"(?i)\b([(http(s)?)://(www.)?a-z0-9@:%._+\-~#=]|[^\x00-\x7F]){2,}\.([a-z0-9]|[^\x00-\x7F]){2,}\b(([-a-z0-9@:%_+\-.~#?&//=]|[^\x00-\x7F])*)";
+        private const string UrlExpression = @"(?i)\b([(http(s)?)://a-z0-9@:%._+\-~#=]|[^\x00-\x7F]){2,}\.([a-z0-9]|[^\x00-\x7F]){2,}\b(([a-z0-9@:%_+\-.~#?&//=]|[^\x00-\x7F])*)";
 
         private const string ProtocolPrefixExpression = @"^([\w]+://)";
 
