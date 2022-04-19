@@ -28,7 +28,7 @@ namespace UrlsParser.UrlsExtracters
                 // don't add it to returned Urls
                 if (!this.IsFileName(urlCandidate))
                 {
-                    urls.Add(this.UrlWithProtocolPrefix(urlCandidate));
+                    urls.Add(this.AddProtocolPrefix(urlCandidate));
                 }
                 
             }
@@ -42,7 +42,7 @@ namespace UrlsParser.UrlsExtracters
             return matchFileName.Success;
         }
 
-        private string UrlWithProtocolPrefix(string url)
+        private string AddProtocolPrefix(string url)
         {
             // check if url contains the protocol prefix
             var matchProtocol = Regex.Match(url, ProtocolPrefixExpression);
