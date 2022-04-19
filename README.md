@@ -3,7 +3,7 @@
 This WEB API application is a developed to extract the URLs from a text that is sent as text/plain to the backend.
 
 
-It is composed of two separate Docker containers that holds:
+It is composed of two projects:
 
 - ASP.net (core) backend (UrlsParser)
 - Unit Tests Project (UrlsParser.Tests)
